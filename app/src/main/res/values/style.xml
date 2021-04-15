@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PodImage">
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:src">@drawable/left_pod</item>
+    </style>
+    <style name="PodPercent">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+</resources>
