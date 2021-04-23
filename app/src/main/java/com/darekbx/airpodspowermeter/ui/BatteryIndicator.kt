@@ -10,6 +10,10 @@ import android.view.View
 class BatteryIndicator(context: Context, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
 
+    companion object {
+        private const val LOW_POWER_LIMIT = 15
+    }
+
     private val borderPaint by lazy {
         Paint().apply {
             color = Color.GRAY
@@ -28,6 +32,13 @@ class BatteryIndicator(context: Context, attributeSet: AttributeSet?) :
     private val greenPaint by lazy {
         Paint().apply {
             color = Color.parseColor("#4CDA63")
+            style = Paint.Style.FILL
+        }
+    }
+
+    private val redPaint by lazy {
+        Paint().apply {
+            color = Color.parseColor("#E63232")
             style = Paint.Style.FILL
         }
     }
@@ -54,8 +65,11 @@ class BatteryIndicator(context: Context, attributeSet: AttributeSet?) :
         val plusTop = (height / 2) - (plusContactHeight / 2)
 
         val percentWidth = batteryWidth * (_power.toFloat() / 100F)
-
-        canvas.drawRoundRect(1F, 1F, percentWidth - padding, batteryHeigth - padding, 4F, 4F, greenPaint)
+        val paint = when {
+            _power <= LOW_POWER_LIMIT -> redPaint
+            else -> greenPaint
+        }
+        canvas.drawRoundRect(1F, 1F, percentWidth - padding, batteryHeigth - padding, 4F, 4F, paint)
 
         canvas.drawRoundRect(1F, 1F, batteryWidth - padding, batteryHeigth - padding, 4F, 4F, borderPaint)
         canvas.drawRect(batteryWidth - padding, plusTop,

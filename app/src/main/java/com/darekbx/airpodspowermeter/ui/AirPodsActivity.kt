@@ -57,10 +57,12 @@ class AirPodsActivity: AppCompatActivity() {
                 binding.leftPodIndicator.power = powerPercent
                 binding.leftPodPercent.text = "${powerPercent}%"
                 binding.leftPodChargeIndicator.isVisible(isCharging)
+                binding.leftPodEarIndicator.isVisible(inEar)
             } else {
                 binding.leftPodIndicator.visibility = View.GONE
                 binding.leftPodPercent.visibility = View.GONE
                 binding.leftPodChargeIndicator.visibility = View.GONE
+                binding.leftPodEarIndicator.visibility = View.GONE
             }
         }
     }
@@ -70,10 +72,12 @@ class AirPodsActivity: AppCompatActivity() {
                 binding.rightPodIndicator.power = powerPercent
                 binding.rightPodPercent.text = "${powerPercent}%"
                 binding.rightPodChargeIndicator.isVisible(isCharging)
+                binding.rightPodEarIndicator.isVisible(inEar)
             } else {
                 binding.rightPodIndicator.visibility = View.GONE
                 binding.rightPodPercent.visibility = View.GONE
                 binding.rightPodChargeIndicator.visibility = View.GONE
+                binding.rightPodEarIndicator.visibility = View.GONE
             }
         }
     }

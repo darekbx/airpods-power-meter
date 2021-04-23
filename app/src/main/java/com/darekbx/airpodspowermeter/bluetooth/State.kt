@@ -1,6 +1,6 @@
 package com.darekbx.airpodspowermeter.bluetooth
 
-class State(val disconnected: Boolean, val isCharging: Boolean, val powerPercent: Int)
+class State(val disconnected: Boolean, val isCharging: Boolean, val powerPercent: Int, val inEar: Boolean)
 
 class LeftPod(val state: State)
 

@@ -50,6 +50,7 @@ class AirPodsState(private val bluetoothAdapter: BluetoothAdapter) {
             val leftStatus = ("" + a[if (flip) 12 else 13]).toInt(16)
             val rightStatus = ("" + a[if (flip) 13 else 12]).toInt(16)
             val caseStatus = ("" + a[15]).toInt(16)
+            val inEarStatus = ("" + a[11]).toInt(16)
 
             // Charge status (bit 0=left; bit 1=right; bit 2=case)
             val charge = ("" + a[14]).toInt(16)
@@ -58,9 +59,12 @@ class AirPodsState(private val bluetoothAdapter: BluetoothAdapter) {
             val chargeR = (if (flip) (charge and 0b00000001) else (charge and 0b00000010)) != 0
             val chargeCase = (charge and 0b00000100) != 0
 
-            val leftPod = LeftPod(State(leftStatus == 15, chargeL, statusToPercent(leftStatus)))
-            val rightPod = RightPod(State(rightStatus == 15, chargeR, statusToPercent(rightStatus)))
-            val case = Case(State(caseStatus == 15, chargeCase, statusToPercent(caseStatus)))
+            val inEarL = inEarStatus and (if (flip) 8 else 2) != 0
+            val inEarR = inEarStatus and (if (flip) 2 else 8) != 0
+
+            val leftPod = LeftPod(State(leftStatus == 15, chargeL, statusToPercent(leftStatus), inEarL))
+            val rightPod = RightPod(State(rightStatus == 15, chargeR, statusToPercent(rightStatus), inEarR))
+            val case = Case(State(caseStatus == 15, chargeCase, statusToPercent(caseStatus), false))
             return StateResult(leftPod, rightPod, case)
         }
         return null
